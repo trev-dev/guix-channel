@@ -1,4 +1,4 @@
-(define-module (packages ruby)
+(define-module (trevdev packages ruby)
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix git-download)
