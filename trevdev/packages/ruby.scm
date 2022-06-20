@@ -46,8 +46,8 @@ to load dynamic content on storefronts.")
      (list bundler ruby-rspec))
     (inputs
      (list ;; ruby-thor is used for the command line interface, and is referenced
-           ;; in the wrapper, and therefore just needs to be an input.
-           ruby-thor))
+      ;; in the wrapper, and therefore just needs to be an input.
+      ruby-thor))
     (propagated-inputs
      (list ruby-rb-fsevent ruby-rb-inotify ruby-dep))
     (synopsis "Listen to file modifications")
@@ -58,44 +58,43 @@ you about the changes.")
 
 (define-public ruby-bugsnag
   (package
-   (name "ruby-bugsnag")
-   (version "6.24.2")
-   (source (origin
-             (method url-fetch)
-             (uri (rubygems-uri "bugsnag" version))
-             (sha256
-              (base32
-               "0vlsqawqy8jn6cy03zcqw944p323zmr2lgadbw00m5r4lqc3bll4"))))
-   (arguments '(#:tests? #f)) ; No rakefile
-   (build-system ruby-build-system)
-   (propagated-inputs (list ruby-concurrent))
-   (synopsis "Ruby notifier for bugsnag.com")
-   (description "The Bugsnag exception reporter for Ruby gives you instant
+    (name "ruby-bugsnag")
+    (version "6.24.2")
+    (source (origin
+              (method url-fetch)
+              (uri (rubygems-uri "bugsnag" version))
+              (sha256
+               (base32
+                "0vlsqawqy8jn6cy03zcqw944p323zmr2lgadbw00m5r4lqc3bll4"))))
+    (arguments '(#:tests? #f)) ; No rakefile
+    (build-system ruby-build-system)
+    (propagated-inputs (list ruby-concurrent))
+    (synopsis "Ruby notifier for bugsnag.com")
+    (description "The Bugsnag exception reporter for Ruby gives you instant
  notification of exceptions thrown from your Rails, Sinatra, Rack or plain
  Ruby app.")
-   (home-page "https://github.com/bugsnag/bugsnag-ruby")
-   (license license:expat)))
+    (home-page "https://github.com/bugsnag/bugsnag-ruby")
+    (license license:expat)))
 
 (define-public ruby-theme-check
   (package
-   (name "ruby-theme-check")
-   (version "1.10.3")
-   (source (origin
-             (method url-fetch)
-             (uri (rubygems-uri "theme-check" version))
-             (sha256
-              (base32
-               "00sqbnbz6bspdzgmcdiziql1lvf0gzxk74hlvwcqsdka78bg0nk0"))))
-   (build-system ruby-build-system)
-   (arguments '(#:tests? #f))
-   (inputs `(("ruby-liquid" ,ruby-liquid-5.3)
-             ("ruby-nokogiri" ,ruby-nokogiri)
-             ("ruby-parser" ,ruby-parser)))
-   (propagated-inputs (list ruby-liquid ruby-nokogiri ruby-parser))
-   (synopsis "A Shopify Theme Linter")
-   (description "This package provides a Shopify Theme Linter")
-   (home-page "https://github.com/Shopify/theme-check")
-   (license license:expat)))
+    (name "ruby-theme-check")
+    (version "1.10.3")
+    (source (origin
+              (method url-fetch)
+              (uri (rubygems-uri "theme-check" version))
+              (sha256
+               (base32
+                "00sqbnbz6bspdzgmcdiziql1lvf0gzxk74hlvwcqsdka78bg0nk0"))))
+    (build-system ruby-build-system)
+    (arguments '(#:tests? #f))
+    (propagated-inputs `(("ruby-liquid" ,ruby-liquid-5.3)
+                         ("ruby-nokogiri" ,ruby-nokogiri)
+                         ("ruby-parser" ,ruby-parser)))
+    (synopsis "A Shopify Theme Linter")
+    (description "This package provides a Shopify Theme Linter")
+    (home-page "https://github.com/Shopify/theme-check")
+    (license license:expat)))
 
 (define-public ruby-shopify-cli
   (package
@@ -109,8 +108,8 @@ you about the changes.")
                 "1fcqc8bpai3pnp77v4im2l92p40jnqikch8s5336lc4gp498vfb5"))))
     (build-system ruby-build-system)
     (inputs `(("ruby-bugsnag" ,ruby-bugsnag)
-              ("ruby-listen"  ,ruby-listen-3.7)
-              ("ruby-theme-check" ,ruby-theme-check)))
+              ("ruby-listen"  ,ruby-listen-3.7)))
+    (propagated-inputs `(("ruby-theme-check" ,ruby-theme-check)))
     (arguments '(#:tests? #f))
     (synopsis "Shopify CLI helps you build Shopify themes and apps")
     (description "Use Shopify CLI to automate and enhance your local
