@@ -99,13 +99,13 @@ you about the changes.")
 (define-public ruby-shopify-cli
   (package
     (name "ruby-shopify-cli")
-    (version "2.19.0")
+    (version "2.20.0")
     (source (origin
               (method url-fetch)
               (uri (rubygems-uri "shopify-cli" version))
               (sha256
                (base32
-                "1fcqc8bpai3pnp77v4im2l92p40jnqikch8s5336lc4gp498vfb5"))))
+                "0cnrkn9iaqa3pdfx5igsr90k5pbi2ry8zhl9m2gvv7s01bj1ja2j"))))
     (build-system ruby-build-system)
     (inputs `(("ruby-bugsnag" ,ruby-bugsnag)
               ("ruby-listen"  ,ruby-listen-3.7)))
@@ -116,4 +116,3 @@ you about the changes.")
  development workflow.")
     (home-page "https://github.com/Shopify/shopify-cli")
     (license license:expat)))
-
