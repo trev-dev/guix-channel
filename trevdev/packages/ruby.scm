@@ -99,13 +99,13 @@ you about the changes.")
 (define-public ruby-shopify-cli
   (package
     (name "ruby-shopify-cli")
-    (version "2.20.0")
+    (version "2.20.1")
     (source (origin
               (method url-fetch)
               (uri (rubygems-uri "shopify-cli" version))
               (sha256
                (base32
-                "0cnrkn9iaqa3pdfx5igsr90k5pbi2ry8zhl9m2gvv7s01bj1ja2j"))))
+                "1vnqsl2xfmjdjmqqq8s7wd2r4vpl39anc540nv1l99qbr0f88kxs"))))
     (build-system ruby-build-system)
     (inputs `(("ruby-bugsnag" ,ruby-bugsnag)
               ("ruby-listen"  ,ruby-listen-3.7)))
