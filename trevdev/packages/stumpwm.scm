@@ -12,7 +12,7 @@
 
 (define-public sbcl-stumpwm-pamixer
   (let ((commit "aa820533c80ea1af5a0e107cea25eaf34e69dc24")
-        (revision "2"))
+        (revision "3"))
     (package
       (name "sbcl-stumpwm-pamixer")
       (version (git-version "0.1.1" revision commit))
@@ -26,6 +26,7 @@
          (sha256
           (base32 "0djcrr16bx40l7b60d4j507vk5l42fdgmjpgrnk86z1ba8wlqim8"))))
       (inputs `(("stumpwm" ,stumpwm "lib")))
+      (propagated-inputs (list pamixer))
       (build-system asdf-build-system/sbcl)
       (arguments '(#:asd-systems '(:pamixer)))
       (home-page "https://github.com/Junker/stumpwm-pamixer")
