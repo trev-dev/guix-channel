@@ -2,6 +2,7 @@
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix packages)
   #:use-module (guix download)
+  #:use-module (guix build utils)
   #:use-module (guix build-system copy)
   #:use-module (gnu packages php)
   #:export (php-composer))
@@ -20,7 +21,14 @@
                 "19nwlvc2sjdxskxlawvnqafnn2c8fld8861qbijgjvy7iqqgd37a"))))
     (build-system copy-build-system)
     (inputs `(("php" ,php)))
-    (arguments `(#:install-plan '(("composer.phar" "bin/composer"))))
+    (arguments '(#:install-plan '(("composer.phar" "bin/composer"))
+                 #:phases
+                 (modify-phases %standard-phases
+                   (add-after 'install 'fix-permissions
+                     (lambda* (#:key outputs #:allow-other-keys)
+                       (chmod (string-append
+                               (assoc-ref outputs "out") "/bin/composer")
+                              #o555))))))
     (home-page "https://getcomposer.org/")
     (synopsis "Manage dependencies for PHP projects")
     (description "Composer is a tool for dependency management in PHP. It allows
