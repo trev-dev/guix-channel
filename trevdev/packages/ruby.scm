@@ -6,24 +6,6 @@
   #:use-module (gnu packages ruby)
   #:use-module ((guix licenses) #:prefix license:))
 
-(define-public ruby-liquid-5.3
-  (package
-    (name "ruby-liquid")
-    (version "5.3.0")
-    (source (origin
-              (method url-fetch)
-              (uri (rubygems-uri "liquid" version))
-              (sha256
-               (base32
-                "0b3nmab5vvn48mr0yrp5cryvdi1xw749jrkca0wwciv0wcb8y50v"))))
-    (build-system ruby-build-system)
-    (arguments `(#:tests? #f)); No rakefile
-    (home-page "https://shopify.github.io/liquid/")
-    (synopsis "Template language")
-    (description "Liquid is a template language written in Ruby.  It is used
-to load dynamic content on storefronts.")
-    (license license:expat)))
-
 (define-public ruby-listen-3.7
   (package
     (name "ruby-listen")
@@ -79,16 +61,16 @@ you about the changes.")
 (define-public ruby-theme-check
   (package
     (name "ruby-theme-check")
-    (version "1.10.3")
+    (version "1.11.0")
     (source (origin
               (method url-fetch)
               (uri (rubygems-uri "theme-check" version))
               (sha256
                (base32
-                "00sqbnbz6bspdzgmcdiziql1lvf0gzxk74hlvwcqsdka78bg0nk0"))))
+                "0971ma7qnbbycfnlwwq3pfz8f6axcslif9dbzmgimv7ad0nrjpp2"))))
     (build-system ruby-build-system)
     (arguments '(#:tests? #f))
-    (propagated-inputs `(("ruby-liquid" ,ruby-liquid-5.3)
+    (propagated-inputs `(("ruby-liquid" ,ruby-liquid)
                          ("ruby-nokogiri" ,ruby-nokogiri)
                          ("ruby-parser" ,ruby-parser)))
     (synopsis "A Shopify Theme Linter")
