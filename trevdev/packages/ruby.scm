@@ -6,16 +6,17 @@
   #:use-module (gnu packages ruby)
   #:use-module ((guix licenses) #:prefix license:))
 
-(define-public ruby-liquid-5.3
+
+(define-public ruby-liquid-5.4
   (package
     (name "ruby-liquid")
-    (version "5.3.0")
+    (version "5.4.0")
     (source (origin
               (method url-fetch)
               (uri (rubygems-uri "liquid" version))
               (sha256
                (base32
-                "0b3nmab5vvn48mr0yrp5cryvdi1xw749jrkca0wwciv0wcb8y50v"))))
+                "0h0d0ghdf01lkv4x0mzp6zdkrnj7gsfq3widkhyni26bf6648qp3"))))
     (build-system ruby-build-system)
     (arguments `(#:tests? #f)); No rakefile
     (home-page "https://shopify.github.io/liquid/")
@@ -79,16 +80,16 @@ you about the changes.")
 (define-public ruby-theme-check
   (package
     (name "ruby-theme-check")
-    (version "1.10.3")
+    (version "1.11.0")
     (source (origin
               (method url-fetch)
               (uri (rubygems-uri "theme-check" version))
               (sha256
                (base32
-                "00sqbnbz6bspdzgmcdiziql1lvf0gzxk74hlvwcqsdka78bg0nk0"))))
+                "0971ma7qnbbycfnlwwq3pfz8f6axcslif9dbzmgimv7ad0nrjpp2"))))
     (build-system ruby-build-system)
     (arguments '(#:tests? #f))
-    (propagated-inputs `(("ruby-liquid" ,ruby-liquid-5.3)
+    (propagated-inputs `(("ruby-liquid" ,ruby-liquid-5.4)
                          ("ruby-nokogiri" ,ruby-nokogiri)
                          ("ruby-parser" ,ruby-parser)))
     (synopsis "A Shopify Theme Linter")
@@ -99,13 +100,13 @@ you about the changes.")
 (define-public ruby-shopify-cli
   (package
     (name "ruby-shopify-cli")
-    (version "2.20.1")
+    (version "2.24.0")
     (source (origin
               (method url-fetch)
               (uri (rubygems-uri "shopify-cli" version))
               (sha256
                (base32
-                "1vnqsl2xfmjdjmqqq8s7wd2r4vpl39anc540nv1l99qbr0f88kxs"))))
+                "13srr1f2jj0cc1plr2d34898w095g6ddj0a34rz60jsscfyjwz2i"))))
     (build-system ruby-build-system)
     (inputs `(("ruby-bugsnag" ,ruby-bugsnag)
               ("ruby-listen"  ,ruby-listen-3.7)))
