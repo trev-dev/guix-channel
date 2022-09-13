@@ -3,9 +3,11 @@
   #:use-module (guix packages)
   #:use-module (guix build-system emacs)
   #:use-module (guix git-download)
+  #:use-module (gnu packages emacs)
   #:use-module (gnu packages emacs-xyz)
   #:use-module (gnu packages mail)
-  #:export (emacs-ol-notmuch))
+  #:export (emacs-ol-notmuch
+            emacs-lsp-mode-with-plists))
 
 (define emacs-ol-notmuch
   (let ((commit "1a53d6c707514784cabf33d865b577bf77f45913")
@@ -33,3 +35,28 @@
 equivalent to folders in other mail clients. Similarly, mails are referred to
 by a query, so both a link can prefer to several mails.")
       (license license:gpl3))))
+
+(define emacs-lsp-mode-with-plists
+  (package
+    (inherit emacs-lsp-mode)
+    (name "emacs-lsp-mode-with-plists")
+    (arguments
+     `(#:emacs ,emacs                 ;need libxml support
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'move-clients-libraries
+           ;; Move all clients libraries at top-level, as is done, e.g., in
+           ;; MELPA.
+           (lambda _
+             (for-each (lambda (f)
+                         (install-file f "."))
+                       (find-files "clients/" "\\.el$"))))
+         (add-before 'move-clients-libraries 'fix-patch-el-files
+           ;; /bin/ksh is only used on macOS, which we don't support, so we
+           ;; don't want to add it as input.
+           (lambda _
+             (substitute* '("clients/lsp-csharp.el" "clients/lsp-fsharp.el")
+               (("/bin/ksh") "ksh"))))
+         (add-before 'fix-patch-el-files 'env-plists-true
+           (lambda _
+             (setenv "LSP_USE_PLISTS" "true"))))))))
