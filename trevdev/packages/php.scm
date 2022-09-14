@@ -20,10 +20,12 @@
                (base32
                 "19nwlvc2sjdxskxlawvnqafnn2c8fld8861qbijgjvy7iqqgd37a"))))
     (build-system copy-build-system)
-    (inputs `(("php" ,php)))
+    (propagated-inputs (list php))
     (arguments '(#:install-plan '(("composer.phar" "bin/composer"))
                  #:phases
                  (modify-phases %standard-phases
+                   (delete 'patch-source-shebangs)
+                   (delete 'patch-shebang)
                    (add-after 'install 'fix-permissions
                      (lambda* (#:key outputs #:allow-other-keys)
                        (chmod (string-append
