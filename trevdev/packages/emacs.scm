@@ -70,6 +70,9 @@ by a query, so both a link can prefer to several mails.")
       (propagated-inputs (list emacs-org-roam
                                emacs-simple-httpd
                                emacs-websocket))
+      (arguments
+       '(#:include
+         (cons "^out" %default-include)))
       (home-page "https://github.com/org-roam/org-roam-ui")
       (synopsis "A frontend for exploring your org-roam notes.")
       (description "Org-Roam-UI is a frontend for exploring and interacting
