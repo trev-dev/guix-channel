@@ -61,7 +61,6 @@ module for StumpWM.")
          ("bordeaux-threads" ,sbcl-bordeaux-threads)))
       (arguments
        '(#:asd-systems '("notify")
-         #:tests? #f
          #:phases
          (modify-phases %standard-phases
            (add-after 'unpack 'chdir
