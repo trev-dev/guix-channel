@@ -3,6 +3,7 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix gexp)
+  #:use-module (guix build utils)
   #:use-module (guix git-download)
   #:use-module (guix build-system asdf)
   #:use-module (gnu packages wm)
@@ -15,7 +16,7 @@
 
 (define sbcl-stumpwm-pamixer
   (let ((commit "aa820533c80ea1af5a0e107cea25eaf34e69dc24")
-        (revision "3"))
+        (revision "4"))
     (package
       (name "sbcl-stumpwm-pamixer")
       (version (git-version "0.1.1" revision commit))
