@@ -24,15 +24,23 @@
        (origin
          (method git-fetch)
          (uri (git-reference
-               (url "https://github.com/Junker/stumpwm-pamixer.git")
+               (url "https://github.com/Junker/stumpwm-pamixer")
                (commit commit)))
          (file-name (git-file-name name version))
          (sha256
           (base32 "0djcrr16bx40l7b60d4j507vk5l42fdgmjpgrnk86z1ba8wlqim8"))))
-      (inputs `(("stumpwm" ,stumpwm "lib")))
-      (propagated-inputs (list pamixer))
+      (inputs `(("stumpwm:lib" ,stumpwm "lib")
+                ("pamixer" ,pamixer)))
       (build-system asdf-build-system/sbcl)
-      (arguments '(#:asd-systems '(:pamixer)))
+      (arguments
+       `(#:asd-systems '(:pamixer)
+         #:phases
+         ,#~(modify-phases %standard-phases
+             (add-after 'unpack 'patch-pamixer-path
+               (lambda _
+                 (substitute* "pamixer.lisp"
+                   (("\"pamixer ")
+                    (string-append "\"" #$pamixer "/bin/pamixer "))))))))
       (home-page "https://github.com/Junker/stumpwm-pamixer")
       (synopsis "StumpWM Pamixer Module")
       (description "Minimalistic Pulseaudio volume and microphone control
