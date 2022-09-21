@@ -6,7 +6,7 @@
   #:use-module (guix build utils)
   #:use-module (guix git-download)
   #:use-module (guix build-system asdf)
-  #:use-module (gnu packages wm)
+  #:use-module ((gnu packages wm) #:prefix wm-upstream:)
   #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages lisp)
   #:use-module (gnu packages lisp-xyz)
@@ -48,35 +48,5 @@
 module for StumpWM.")
       (license license:gpl3))))
 
-(define sbcl-stumpwm-contrib-notify
-  (let ((commit "d0c05077eca5257d33083de949c10bca4aac4242")
-        (revision "1"))
-    (package
-      (name "sbcl-stumpwm-contrib-notify")
-      (version (git-version "0.0.1" revision commit)) ;no upstream release
-      (source
-       (origin
-         (method git-fetch)
-         (uri (git-reference
-               (url "https://github.com/stumpwm/stumpwm-contrib")
-               (commit commit)))
-         (file-name (git-file-name name version))
-         (sha256
-          (base32 "0zxhqh9wjfk7zas67kmwfx0a47y8rxmh8f1a5rcs300bv1083lkb"))))
-      (build-system asdf-build-system/sbcl)
-      (inputs
-       `(("stumpwm" ,stumpwm "lib")
-         ("xml-emitter" ,sbcl-xml-emitter)
-         ("dbus" ,sbcl-dbus)
-         ("bordeaux-threads" ,sbcl-bordeaux-threads)))
-      (arguments
-       '(#:asd-systems '("notify")
-         #:phases
-         (modify-phases %standard-phases
-           (add-after 'unpack 'chdir
-             (lambda _ (chdir "util/notify") #t)))))
-      (home-page "https://github.com/stumpwm/stumpwm-contrib")
-      (synopsis "Notifications server for StumpWM")
-      (description "Implements org.freedesktop.Notifications
-interface[fn:dbus-spec]. Shows notifications using stumpwm:message by default.")
-      (license (list license:gpl2+ license:gpl3+ license:bsd-2)))))
+(define sbcl-stumpwm-contrib-notify ; Now available via Guix upstream
+  (package (inherit wm-upstream:sbcl-stumpwm-notify)))
