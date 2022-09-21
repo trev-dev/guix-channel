@@ -11,10 +11,9 @@
   #:use-module (gnu packages lisp)
   #:use-module (gnu packages lisp-xyz)
   #:use-module (trevdev packages lisp)
-  #:export (sbcl-stumpwm-pamixer
-            sbcl-stumpwm-contrib-notify))
+  #:export (sbcl-stumpwm-contrib-notify))
 
-(define sbcl-stumpwm-pamixer
+(define sbcl-stumpwm-pamixer ; Now available via Guix upstream
   (let ((commit "aa820533c80ea1af5a0e107cea25eaf34e69dc24")
         (revision "5"))
     (package
