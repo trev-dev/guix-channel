@@ -2,6 +2,8 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages gettext)
+  #:use-module (gnu packages xorg)
+  #:use-module (guix gexp)
   #:use-module (guix build utils)
   #:use-module (guix git-download)
   #:use-module (guix packages)
@@ -25,15 +27,22 @@
          "1lzhf7hlvzg62nxjfpv265315qibcjz5dv08dzpfckf2dx68nab4"))))
     (build-system copy-build-system)
     (native-inputs (list `(,glib "bin") gettext-minimal))
+    (inputs (list xprop))
     (arguments
-     '(#:install-plan '(("./unite@hardpixel.eu"
+     (list
+      #:install-plan ''(("./unite@hardpixel.eu"
                          "share/gnome-shell/extensions/unite@hardpixel.eu"))
       #:phases
-      (modify-phases %standard-phases
-        (add-before 'install 'compile-schemas
-          (lambda _
-            (with-directory-excursion "unite@hardpixel.eu/schemas"
-              (invoke "glib-compile-schemas" ".")))))))
+      #~(modify-phases %standard-phases
+          (add-after 'unpack 'patch-xprop-bin
+            (lambda _
+              (substitute* "unite@hardpixel.eu/window.js"
+                (("xprop")
+                 (string-append #$(this-package-input "xprop") "/bin/xprop")))))
+          (add-before 'install 'compile-schemas
+            (lambda _
+              (with-directory-excursion "unite@hardpixel.eu/schemas"
+                (invoke "glib-compile-schemas" ".")))))))
     (home-page "https://github.com/hardpixel/unite-shell")
     (synopsis "Top panel and window decoration extension for GNOME Shell")
     (description "Unite is a GNOME Shell extension which makes a few layout
